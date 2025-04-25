@@ -1,42 +1,24 @@
-# Laravel + Docker + SQLite
+## Pasos para levantar el entorno
 
-Este proyecto es una configuración básica de Laravel usando Docker y SQLite como base de datos. Ideal para desarrollo local, liviano y rápido de levantar.
-
----
-
-## 🚀 Pasos para levantar el entorno
-
-### 📦 Requisitos
-
-- Docker y Docker Compose instalados
-- Laravel ya instalado en el proyecto
-- Carpeta `docker/` con configuración de Nginx y PHP
-
----
-
-### ⚙️ 1. Crear base de datos SQLite
-
+### PHP artisan (localhost:8000)
 ```bash
-mkdir -p database
-touch database/database.sqlite
-chmod -R 777 database
+$ php artisan serve
+```
 
+### Docker (localhost:8000)
+```bash
+$ dock build -t api-name:tag .
+$ docker run -p 8000:80 -d api-name:tag
+```
 
-```.env
-DB_CONNECTION=sqlite
-DB_DATABASE=/var/www/database/database.sqlite
+### Terraform with Render + Docker image
+ - Have an account in render.com (no free-tier)
+ - Check the file main.tf to see the access
+ - then execute:
+```bash
+$ terraform plan
+$ terraform apply
+```
 
-```Dar permisos
-chmod -R 777 storage bootstrap/cache
-
-
-```Levantar el entorno
-docker-compose up -d --build
-
-
-```Instalar dependencias y migrar base
-docker-compose exec app composer install
-docker-compose exec app php artisan key:generate
-docker-compose exec app php artisan migrate
 
 
