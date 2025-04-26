@@ -1,5 +1,7 @@
 FROM php:8.2-fpm-alpine AS backend
 
+USER www-data
+
 RUN echo http://dl-cdn.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories
 RUN echo http://dl-cdn.alpinelinux.org/alpine/edge/community/ >> /etc/apk/repositories
 
@@ -33,6 +35,8 @@ COPY docker/ssl/server.key /etc/ssl/private/server.key
 
 # Permisos para Laravel
 RUN chmod -R 777 storage bootstrap/cache database
+
+RUN composer update
 
 # Exponer puertos
 EXPOSE 80 443
