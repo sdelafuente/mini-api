@@ -32,7 +32,6 @@ Pre-requisites: This asumes that you have at least php8.2 and all the libraries 
 $ php artisan serve
 ```
 
-
 ### Terraform with Render + Docker image
  - Have an account in render.com (no free-tier)
  - then execute:
