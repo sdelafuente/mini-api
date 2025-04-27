@@ -3,7 +3,7 @@ name: Deploy on Tag (Master)
 on:
   push:
     tags:
-      - 'v*' # Por ejemplo: v1.0.0, v2.3.1
+      - 'v*'
     branches:
       - master
 
@@ -15,21 +15,20 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Ejecutar deploy.sh
+      - name: Build Push Deploy
         run: |
           DOCKER_USER="30281856"
           DOCKER_REPO="30281856/mini-api"
           IMAGE_TAG="latest"
 
-          # docker login -u 30281856
-          echo "🔐 Haciendo login a Docker..."
+          echo "==== Login into Docker..."
           echo "${{secrets.DOCKER_TOKEN}}" | docker login -u "$DOCKER_USER" --password-stdin
 
-          echo "🔐 Buildear imagen..."
+          echo "==== Build image..."
           docker build -t "${DOCKER_REPO}:${IMAGE_TAG}" .
 
-          echo "📦 Pusheando imagen..."
+          echo "==== Push image..."
           docker push "${DOCKER_REPO}:${IMAGE_TAG}"
 
-          echo "Deploy..."
+          echo "==== Calling render deploy service..."
           curl https://api.render.com/deploy/${{secrets.RENDER_SERVICE_ID}}?key=${{secrets.RENDER_SERVICE_KEY}}
