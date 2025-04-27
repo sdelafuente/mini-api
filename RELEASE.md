@@ -14,7 +14,7 @@ Note: The GHA implementation needs GH secrets. The repository used for testing w
 
 ### Local Docker (localhost:8000)
 ```bash
-$ dock build -t api-name:tag .
+$ docker build -t api-name:tag .
 $ docker run -p 8000:80 -d api-name:tag
 ```
 
@@ -42,6 +42,3 @@ $ terraform apply
 ```
 
 Note: this implementation is not production tested because render needs an account that is not free-tier to use Terraform
-
-
-
